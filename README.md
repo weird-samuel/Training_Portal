@@ -2,7 +2,7 @@
 
 # Training Portal
 
-Training Porta is a web application developed for a backend class project. It utilizes a Bootstrap template along with Node.js (Express) and MySQL to create a comprehensive training management system. This README file provides essential information about the project, including its features, setup instructions, and usage guidelines.
+Training Portal is a web application developed for a backend class project. It utilizes a Bootstrap template along with Node.js (Express) and MySQL to create a comprehensive training management system. This README file provides essential information about the project, including its features, setup instructions, and usage guidelines.
 
 ## Features
 
