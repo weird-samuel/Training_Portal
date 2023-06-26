@@ -1,0 +1,79 @@
+<%- include('partials/header') %>
+    <main class="mt-3" style="min-height: 33.7vh;">
+        <div class="container">
+            <h2>Plans
+                <a href="/admin/add-plan" class="float-end btn btn-sm btn-primary">Add plan</a>
+            </h2>
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (const plan of plans) { %>
+                        <tr>
+                            <td><%- plan.name %></td>
+                            <td><%- plan.description %></td>
+                            <td>
+                                <a class="btn btn-danger btn-sm" href="/admin/plan/delete/<%- plan.id %>">Delete</a>
+                                <a class="btn btn-primary btn-sm" href="/admin/plan/edit/<%- plan.id %>">Edit</a>
+                                <a class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                    href="#planCoursesModal" onclick="attachCourse('<%- plan.id %>')">Courses</a>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div class="modal fade" id="planCoursesModal" tabindex="-1" aria-labelledby="planCoursesModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="/admin/plan/attach-course" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="planCoursesModalLabel">Modal Title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <% for( let course of courses ) { %>
+                            <div class="form-check-inline mb-3">
+                                <label class="form-check-label">
+                                    <input type="checkbox" name="courses" id="course<%= course.id %>"
+                                        value="<%= course.id %>">
+                                    <%= course.name %>
+                                </label>
+                            </div>
+                        <% } %>
+                        <input type="hidden" name="plan_id" id="plan_id">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function attachCourse(plan_id) {
+            let attachedCourses = []
+            document.querySelectorAll('[name="courses"]').forEach(function(elem){elem.checked = false})
+            document.querySelector('#plan_id').value = plan_id
+            fetch('/admin/plan/'+ plan_id + '/attached-courses').then(function(data){
+                data.json().then(function(result){
+                    attachedCourses = result;
+                    for (const course_id of attachedCourses) {
+                        document.querySelector('#course'+ course_id).checked = true
+                    }
+                })
+            })
+        }
+    </script>
+    <%- include('partials/footer') %>

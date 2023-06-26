@@ -1,0 +1,88 @@
+<%- include('partials/header.ejs') %>
+    <main class="mt-3" style="min-height: 33.7vh;">
+        <div class="container">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title text-center">Student Profile
+                                    <a href="/admin/student/edit/<%- student.id%>"
+                                        class="float-end btn btn-sm btn-primary"><i class="bx bx-edit"></i></a>
+                                    <a href="#addPlanModal" data-bs-toggle="modal"
+                                        class="float-end btn btn-sm btn-primary mx-2"><i class="bx bx-plus"> Add plan</i></a>
+                                </h2>
+                            </div>
+                            <div class="card-body text-center">
+                                <img src="/<%- student.photo %>" alt="Student Photo" class="rounded-circle mb-4"
+                                    width="150">
+                                <h5 class="card-text">Name: <%= student.name || 'Unavailable' %>
+                                </h5>
+                                <h5 class="card-text">Age: <%= student.age || 'Unavailable' %>
+                                </h5>
+                                <h5 class="card-text">Email: <%= student.email || 'Unavailable' %>
+                                </h5>
+                                <h5 class="card-text">Phone: <%= student.phone || 'Unavailable' %>
+                                </h5>
+                                <h5 class="card-text">Address: <%= student.address || 'Unavailable' %>
+                                </h5>
+                                <h5 class="card-text">Sponsor: <%= student.sponsor || 'Unavailable' %>
+                                </h5>
+                                <h5 class="card-text">Sponsor Email: <%= student.sponsor_email || 'Unavailable' %>
+                                </h5>
+                                <h5 class="card-text">Sponsor Phone: <%= student.sponsor_phone || 'Unavailable' %>
+                                </h5>
+                                <h5 class="card-text">Sponsor Address: <%= student.address || 'Unavailable' %>
+                                </h5>
+                                <h5 class="card-text">Date Joined: <%= student.date_joined || 'Unavailable' %>
+                                </h5>
+                                <h5 class="card-text">Plan of Study: <%= student.plan || 'Unavailable' %>
+                                </h5>
+                                <hr>
+                                <h4>Plan</h4>
+                                <div class="d-flex">
+                                    <% for( let plan of student.plans) { %>
+                                        <div class="m-2 border border-2 p-2"><%= plan.name %></div>
+                                    <% } %>
+                                </div>
+                                <hr>
+                                <h4>Courses</h4>
+                                <div class="">
+                                    <% for( let course of student.courses) { %>
+                                        <div class="m-2 border border-2 p-2"><%= course.name %><%=  %></div>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    <div class="modal fade" id="addPlanModal" tabindex="-1" aria-labelledby="addPlanModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="/admin/student/<%- student.id %>/attach-plan" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="planPlanModalLabel">Modal Title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <select name="plan_id" id="plan_id" class="form-control">
+                                <% for( let plan of plans ) { %>
+                                    <option value="<%- plan.id %>"><%= plan.name %></option>
+                                <% } %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>

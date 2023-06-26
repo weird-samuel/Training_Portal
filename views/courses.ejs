@@ -1,0 +1,35 @@
+<%- include('partials/header') %>
+    <main class="mt-3" style="min-height: 33.7vh;">
+        <div class="container">
+        <h2>Courses
+            <a href="/admin/add-course" class="float-end btn btn-sm btn-primary">Add Course</a>
+        </h2>
+        <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Duration</th>
+                        <th>Description</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (const course of courses) { %>
+                        <tr>
+                            <td><%- course.name %></td>
+                            <td><%- course.duration %> week(s)</td>
+                            <td><%- course.description %></td>
+                            <td>
+                                <a class="btn btn-danger btn-sm" href="/admin/course/delete/<%- course.id %>">Delete</a>
+                                <a class="btn btn-primary btn-sm" href="/admin/course/edit/<%- course.id %>">Edit</a>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+
+ <%- include('partials/footer') %>

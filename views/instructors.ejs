@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+    <main class="mt-3" style="min-height: 33.7vh;">
+        <div class="container">
+            <h2>instructors
+                <a href="/admin/add-instructor" class="float-end btn btn-sm btn-primary">Add instructor</a>
+            </h2>
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (const instructor of instructors) { %>
+                        <tr>
+                            <td><%- instructor.name %></td>
+                            <td><%- instructor.gender %></td>
+                            <td><%- instructor.age %></td>
+                            <td><%- instructor.phone %></td>
+                            <td><%- instructor.email %></td>
+                            <td>
+                                <a class="btn btn-danger btn-sm" href="/admin/instructor/delete/<%- instructor.id %>">Delete
+                                    <i class="bx bx-trash"></i></a>
+                                <a class="btn btn-primary btn-sm"
+                                    href="/admin/instructor/profile/<%- instructor.id %>">Profile <i
+                                        class="bx bx-user"></i></a>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+
+    <%- include('partials/footer') %>
