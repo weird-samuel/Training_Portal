@@ -2,7 +2,7 @@ const mysql = require('mysql2');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    database: 'training_portal'
+    database: 'test'
 });
 
 connection.connect((err) => console.log(err || 'Database Connected'))

@@ -47,7 +47,7 @@ app.use((req, res, next) => {
 })
 
 app.use(route);
-app.use('/admin',  adminRoute);
+app.use('/admin', verifyAdmin,  adminRoute);
 // app.use('/admin', adminRoute);
 
 app.listen(3000, () => console.log(`Server is listening on port ${port}\nvisit http://localhost:${port}`))
